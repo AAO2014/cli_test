@@ -1,8 +1,23 @@
+import httpretty
 import pytest
+import requests
 
-from weather import get_weather
+from .weather import get_weather
 
 
-def test_ok_responce():
+def test_get_weather():
+    httpretty.enable()
+
+    httpretty.register_uri(
+        httpretty.GET,
+        "https://www.metaweather.com/api/location/search/?query=moscow",
+        body='[{"woeid": 2122265}]'
+    )
+    httpretty.register_uri(
+        httpretty.GET,
+        "https://www.metaweather.com/api/location/2122265/",
+        body='{"consolidated_weather":{"applicable_date": abc}}'
+    )
+
     result = get_weather('moscow')
-    assert 'applicable_date' in result[0].keys()
+    assert result[:14] == 'Temperature in'

@@ -16,7 +16,7 @@ def get_weather(city):
     )
     result = json.loads(response.text)['consolidated_weather']
     return 'Temperature in {}: {}..{} `C'.format(
-        city.f, result[0]['min_temp'], result[0]['max_temp']
+        city, result[0]['min_temp'], result[0]['max_temp']
     )
 
 

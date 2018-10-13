@@ -16,7 +16,7 @@ def test_get_weather():
     httpretty.register_uri(
         httpretty.GET,
         "https://www.metaweather.com/api/location/2122265/",
-        body='{"consolidated_weather":{"applicable_date": abc}}'
+        body='{"consolidated_weather":[{"min_temp":0,"max_temp":1}]}'
     )
 
     result = get_weather('moscow')
